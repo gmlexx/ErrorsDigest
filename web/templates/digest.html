@@ -1,0 +1,16 @@
+		<table>
+			<tr><th>Pattern</th><th>10 min</th><th>1 hour</th><th>4 hours</th><th>1 day</th><th>2 days</th></tr>
+		{% for pattern in digest %}
+			<tr>
+				<td>{{ pattern.name }}</td>
+				{% for item in pattern.counts %}
+					<td class="td-count" onclick="open_pattern('{{ pattern.hash }}', '{{ item.min }}');">{{ item.count }}</td>
+				{% endfor%}
+			</tr>
+		{% endfor%}
+		</table>
+        <script type="text/javascript">
+            update_digest = true;
+            if(update_digest == true) 
+            $("#update_digest_span").text("autoupdate every 60 sec");
+        </script>

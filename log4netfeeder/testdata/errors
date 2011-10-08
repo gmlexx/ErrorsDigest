@@ -1,0 +1,24 @@
+ERROR 2011-10-07 21:03:48,937 [35] VM-WEB WebApp.Global Unhandled exception. Url: http://192.168.5.194/FakeLogin.aspx;
+System.Web.HttpException (0x80004005): Could not find appropriate controller for request /FakeLogin.aspx
+   at WebApp.Infrastructure.RoboControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType) in c:\BuildAgent\work\3ebedc4feb7df8a0\WebApp\Infrastructure\RoboControllerFactory.cs:line 23
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ERROR 2011-10-07 21:04:38,820 [35] VM-WEB WebApp.Global Unhandled exception. Url: http://192.168.5.194/FakeLogin.aspx;
+System.Web.HttpException (0x80004005): Could not find appropriate controller for request /FakeLogin.aspx
+   at WebApp.Infrastructure.RoboControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType) in c:\BuildAgent\work\3ebedc4feb7df8a0\WebApp\Infrastructure\RoboControllerFactory.cs:line 23
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ERROR 2011-10-07 21:14:56,231 [35] VM-WEB WebApp.Global Unhandled exception. Url: http://192.168.5.194/FakeLogin.aspx;
+System.Web.HttpException (0x80004005): Could not find appropriate controller for request /FakeLogin.aspx
+   at WebApp.Infrastructure.RoboControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType) in c:\BuildAgent\work\3ebedc4feb7df8a0\WebApp\Infrastructure\RoboControllerFactory.cs:line 23
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
