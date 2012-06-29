@@ -32,7 +32,7 @@ $(document).ready(function () {
 	document_original_title = document.title;
 	setInterval(function () {
 		if (update_digest == true) {
-			$("#content").load('/digest/', check_default_errors_count);
+			$("#content").load('digest/', check_default_errors_count);
 		}
 	}, 60000);
 });
@@ -66,7 +66,7 @@ title_blink = function () {
 
 edit_patterns = function(){
 	update_digest = false;
-	$("#all_patterns").load("/patterns/all/",
+	$("#all_patterns").load("patterns/all/",
 		function(data){
 			$("#all_patterns").dialog({
 				title: 'Все шаблоны',
@@ -80,7 +80,7 @@ edit_patterns = function(){
 			$("#all_patterns").dialog('option', 'buttons', [
 				{text: 'Сохранить',
 				click: function(){
-					$.post("/patterns/save/", {data: $("#all_patterns_textarea").val()})
+					$.post("patterns/save/", {data: $("#all_patterns_textarea").val()})
 					$("#all_patterns").dialog('close');
 					$("#content").load('/digest/');			
 				}}				
@@ -90,6 +90,6 @@ edit_patterns = function(){
 }
 
 open_pattern = function(hash, minutes){
-	window.location = "/pattern?hash=" + hash + "&min=" + minutes;
+	window.location = "pattern?hash=" + hash + "&min=" + minutes;
 };
 
