@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pattern">
+	<div class="left">
+		<h2>{{ name }}</h2>
+		<div class="last_ts_delta">{{ last_ts_delta }}</div>
+		<dl><dt>
+			<p>Total</p>		
+			<em class="number2" onclick="window.location = '/pattern?hash={{ hash }}&min={{ minutes }}';">{{ count }}</a></em>
+			</dt>
+		</dl>
+		<dl>
+		{% for host in hosts %}
+			<dt><p>{{ host.name }}</p><em class="number2" onclick='$("#last_{{ hash }}").load("/data?hash={{hash}}&host={{ host.name }}&min={{ minutes }}")'>{{ host.count }}</em><div class="clear"></div></dt>
+		{% endfor %}
+		</dl>
+	</div>
+	<div class="right">
+		<div class="errors-list" id="last_{{ hash }}">
+			{% include "data.html" %}
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+{% endblock %}
