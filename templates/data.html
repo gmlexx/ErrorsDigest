@@ -1,5 +1,12 @@
 			<ul>
 			{% for item in data %}
-				<li><pre>{{ item }}</pre></li>
+				<li>
+					<div class='error-header'>
+						<span class='timestamp'>{{ item.ts_string }}</span>
+						<span class='host'>{{ item.host }}</span>
+						<span>{{ item.logger }}</span>
+					</div>
+					<div class='message'>{{ item.message }}</div>
+				</li>
 			{% endfor %}
 			</ul>				

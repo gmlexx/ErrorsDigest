@@ -8,7 +8,8 @@ TREE = Tree()
 def get_hash(str):
 	return hash(str) & sys.maxint
 
-def load():
+def load_patterns():
+	loaded_patterns_hashes = {}
 	pattern_path = os.path.join(DATA_PATH, "patterns")
 	if os.path.exists(pattern_path):
 		f = codecs.open(pattern_path, mode="r", encoding='utf-8')
@@ -21,16 +22,28 @@ def load():
 					logger = line.strip()
 				if count % 3 == 2:
 					pattern = line.strip()
-					hash = get_hash(name)
-					TREE.patterns.update({hash: TPattern(name, logger, pattern)})
-					TREE.patterns_order.insert(0, hash)
+					hash = get_hash("".join([name, logger, pattern]))
+					if hash not in TREE.patterns:
+						TREE.patterns.update({hash: TPattern(name, logger, pattern)})
+						TREE.patterns_order.insert(0, hash)
+					loaded_patterns_hashes.update({hash:name})
 			count += 1
 		f.close()
-	else:
+	if len(TREE.patterns) == 0:
 		hash = get_hash("Default")
 		TREE.patterns.update({hash: TPattern("Default", ".*", ".*")})
 		TREE.patterns_order.insert(0, hash)
+	for pattern_hash in TREE.patterns.keys():
+		if pattern_hash not in loaded_patterns_hashes:
+			latest_data = [item for item in TREE.patterns[pattern_hash].latest_data]
+			del TREE.patterns[pattern_hash] 
+			TREE.patterns_order.remove(pattern_hash)
+			for item in latest_data:
+				TREE.process_data_dict(item)
 
+def load():
+
+	load_patterns()
 	raw_datapath = os.path.join(DATA_PATH, "raw")
 
 	if os.path.exists(raw_datapath):
@@ -52,9 +65,14 @@ def load():
 	else:
 		os.makedirs(raw_datapath)
 
-def reload_tree():
-	TREE.clear()
-	load()
+def reload_latest_data():
+	load_patterns()
+	defaultPattern = TREE.patterns[TREE.patterns_order[-1]]
+	latest_data = [item for item in defaultPattern.latest_data]
+	defaultPattern.latest_data.clear()
+	for item in latest_data:
+		defaultPattern.hosts[item['host']].remove(item)
+		TREE.process_data_dict(item)
 
 def put(data):
 	date = TREE.put(data)
@@ -62,15 +80,6 @@ def put(data):
 	f = codecs.open(date_file_path, mode="a", encoding='utf-8')
 	f.write("%s\n" % data)
 	f.close()
-
-def add_pattern(name, logger, pattern):
-	pattern_path = os.path.join(DATA_PATH, "patterns")
-	f = codecs.open(pattern_path, mode="a", encoding='utf-8')
-	f.write("# %s\n" % name)
-	f.write("%s\n" % logger)
-	f.write("%s\n" % pattern)
-	f.close()
-	reload_tree()
 
 def get_raw_patterns():
 	pattern_path = os.path.join(DATA_PATH, "patterns")
@@ -86,5 +95,5 @@ def save_patterns(data):
 	f = codecs.open(pattern_path, mode="w", encoding='utf-8')
 	f.write(data.decode('utf8'))
 	f.close()
-	reload_tree()
+	reload_latest_data()
 

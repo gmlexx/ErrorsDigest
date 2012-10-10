@@ -80,9 +80,12 @@ edit_patterns = function(){
 			$("#all_patterns").dialog('option', 'buttons', [
 				{text: 'Сохранить',
 				click: function(){
-					$.post("patterns/save/", {data: $("#all_patterns_textarea").val()})
+					$("#content").html("Loading...");
+					$.post("patterns/save/", {data: $("#all_patterns_textarea").val()}, 
+					function(){
+						document.location.href = '/';
+					})
 					$("#all_patterns").dialog('close');
-					$("#content").load('/digest/');			
 				}}				
 			]);
 		}
