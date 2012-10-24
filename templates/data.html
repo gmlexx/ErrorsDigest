@@ -2,6 +2,7 @@
 			{% for item in data %}
 				<li>
 					<div class='error-header'>
+						<span class='level'>{{ item.level }}</span>
 						<span class='timestamp'>{{ item.ts_string }}</span>
 						<span class='host'>{{ item.host }}</span>
 						<span>{{ item.logger }}</span>

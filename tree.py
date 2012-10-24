@@ -142,12 +142,13 @@ class Tree:
 		parts.append(data[c_count:])
 
 		if len(parts) > 5:
+			level = parts[0] 
 			host = parts[4]
 			logger = parts[5]
 			message = " ".join((parts[6:]))
 			ts = datetime.strptime("%s %s" % (parts[1], parts[2]), "%Y-%m-%d %H:%M:%S,%f")
 			ts_string = "".join([parts[1], " ", parts[2]])
-			data_dict = {'host':host, 'logger':logger, 'message':message, 'ts':ts, 'id': uuid.uuid4(), 'ts_string':ts_string}
+			data_dict = {'level':level, 'host':host, 'logger':logger, 'message':message, 'ts':ts, 'id': uuid.uuid4(), 'ts_string':ts_string}
 			self.process_data_dict(data_dict)
 
 		return datetime.now().date().strftime("%Y-%m-%d")

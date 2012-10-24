@@ -147,5 +147,6 @@ table td {
 	word-break: break-all;
 }
 
+.level { color: blue; font-weight: bold }
 .host { color: blue; font-weight: bold }
 .timestamp { color: blue; font-weight: bold }
