@@ -92,7 +92,7 @@ class RawNewPattern(TemplatedResource):
 
 	def render_POST(self, request):
 		lines = []
-		for line in request.args['data'][0].split("\n"):
+		for line in request.args['data'][0].decode('utf8').split("\n"):
 			stripped = line.strip()
 			if stripped != '':
 				lines.append(stripped)

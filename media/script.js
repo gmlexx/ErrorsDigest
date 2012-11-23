@@ -120,6 +120,7 @@ create_pattern = function(logger, message){
 			});
 			$("#new_pattern_logger").text(logger);
 			$("#new_pattern_message").text(message);
+			$("#new_pattern_textarea").val('# ' + logger + '\n' + logger);
 			$("#new_pattern").dialog('option', 'buttons', [
 				{text: 'Add',
 				click: function(){
