@@ -82,3 +82,20 @@ class RawPatterns(TemplatedResource):
 	def render_POST(self, request):
 		storage.save_patterns(request.args['data'][0])
 		return ""
+
+class RawNewPattern(TemplatedResource):
+	isLeaf = True
+
+	def render_GET(self, request):
+		context = Context({'data':"#<name>\n\n"})
+		return self.render_template(context,request)
+
+	def render_POST(self, request):
+		lines = []
+		for line in request.args['data'][0].split("\n"):
+			stripped = line.strip()
+			if stripped != '':
+				lines.append(stripped)
+		name, logger, pattern = lines
+		storage.add_pattern(name.replace('#','').strip(), logger.strip(), pattern.strip())
+		return ""

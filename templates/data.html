@@ -5,9 +5,15 @@
 						<span class='level'>{{ item.level }}</span>
 						<span class='timestamp'>{{ item.ts_string }}</span>
 						<span class='host'>{{ item.host }}</span>
-						<span>{{ item.logger }}</span>
+                        <span id='logger_{{ item.id }}'>{{ item.logger }}</span>
 					</div>
-					<div class='message'>{{ item.message }}</div>
+                    <div>
+                        <span onclick='create_pattern($("#logger_{{ item.id }}").text(), $("#message_{{ item.id }}").text());' class='create-pattern-button'>Pattern</span>
+                        <span onclick='select_text($("#message_{{ item.id }}"));' class='select-text-button'>Select</span>
+                    </div>
+                    <div class='message' id='message_{{ item.id }}'>
+                        {{ item.message }}
+                    </div>
 				</li>
 			{% endfor %}
 			</ul>				

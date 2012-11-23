@@ -134,11 +134,23 @@ table td {
 	font-size: 9pt;
 }
 
+#new_pattern_textarea {width: 520px; height:250px;}
+#new_pattern_logger {font-size: 11px; margin-bottom: 10px; display: inline-block;}
+#new_pattern_message {height:auto; font-size: 11px; margin-bottom: 10px; display: inline-block;}
+
 .zero_pattern {
 	display: none;
 }
 
+.highLight {
+    background-color: #fcffcf;
+}
+
+.create-pattern-button { display: inline-block; float:right; }
+.select-text-button { display: inline-block; float:right; }
 .error-header span { padding-right: 10px; }
+.error-header {float: left;}
+
 
 .message {
 	margin-top: 5px;

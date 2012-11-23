@@ -96,3 +96,53 @@ open_pattern = function(hash, minutes){
 	window.location = "pattern?hash=" + hash + "&min=" + minutes;
 };
 
+regExpHighLight = function(elem){
+    var input = elem.value.split("\n");
+    if (input.length < 3) return "";
+    var loggerReg = new RegExp(input[1]);
+    var messageReg = new RegExp(input[2],"gm");
+    $("#new_pattern_logger").html($("#new_pattern_logger").text().replace(loggerReg,"<span class=\"highLight\">$&</span>"));
+    $("#new_pattern_message").html($("#new_pattern_message").text().replace(messageReg,"<span class=\"highLight\">$&</span>"));
+};
+
+create_pattern = function(logger, message){
+	update_digest = false;
+	$("#new_pattern").load("new_pattern",
+		function(data){
+			$("#new_pattern").dialog({
+				title: 'New pattern',
+				modal: true,
+				width: 560,
+				close: function(event, ui){
+					$(this).empty();
+					update_digest = true;
+				}
+			});
+			$("#new_pattern_logger").text(logger);
+			$("#new_pattern_message").text(message);
+			$("#new_pattern").dialog('option', 'buttons', [
+				{text: 'Add',
+				click: function(){
+					$.post("/new_pattern/save/", {data: $("#new_pattern_textarea").val()});
+					$("#new_pattern").dialog('close');
+					$("#content").load('/digest/');
+				}}
+			]);
+		}
+	);
+};
+
+select_text = function(element){
+    var doc = document, range, selection;    
+    if (doc.body.createTextRange) {
+        range = doc.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();        
+        range = doc.createRange();
+        range.selectNodeContents(element[0]);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+};

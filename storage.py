@@ -93,7 +93,16 @@ def get_raw_patterns():
 def save_patterns(data):
 	pattern_path = os.path.join(DATA_PATH, "patterns")
 	f = codecs.open(pattern_path, mode="w", encoding='utf-8')
-	f.write(data.decode('utf8'))
+	f.write(data.rstrip('\n').decode('utf8'))
+	f.write(u'\n')
 	f.close()
 	reload_latest_data()
 
+def add_pattern(name, logger, pattern):
+        pattern_path = os.path.join(DATA_PATH, "patterns")
+        f = codecs.open(pattern_path, mode="a", encoding='utf-8')
+        f.write("# %s\n" % name)
+        f.write("%s\n" % logger)
+        f.write("%s\n" % pattern)
+        f.close()
+        reload_latest_data()
