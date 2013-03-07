@@ -124,9 +124,9 @@ create_pattern = function(logger, message){
 			$("#new_pattern").dialog('option', 'buttons', [
 				{text: 'Add',
 				click: function(){
-					$.post("/new_pattern/save/", {data: $("#new_pattern_textarea").val()});
+					$.post("new_pattern/save/", {data: $("#new_pattern_textarea").val()});
 					$("#new_pattern").dialog('close');
-					$("#content").load('/digest/');
+					$("#content").load('digest/');
 				}}
 			]);
 		}
