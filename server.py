@@ -1,17 +1,12 @@
 #!/usr/bin/python
 
 import sys
-import os
 import resources
 import storage
 from twisted.internet.protocol import DatagramProtocol
-from twisted.internet import reactor
-from twisted.web import static
-from twisted.web import server, resource
+from twisted.web import server
 from twisted.application import service, internet
-from twisted.web import http
 from twisted.python import log
-from twisted.internet import defer
 from django.conf import settings
 
 storage.load()
