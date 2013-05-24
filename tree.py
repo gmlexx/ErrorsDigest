@@ -104,7 +104,7 @@ class TPattern:
 	def get_last_ts_delta(self, now):
 		if not self.last_ts:
 			return ""
-		delta = 0 if now < self.last_ts else now - self.last_ts
+		delta = timedelta(0) if now < self.last_ts else now - self.last_ts
 		str_result = "%s days %s hours %s min" % (delta.days, int(delta.seconds/3600), int(delta.seconds%3600/60))
 		return str_result.replace('0 days ','').replace('0 hours ','')
 
