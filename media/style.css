@@ -149,13 +149,13 @@ table td {
 .create-pattern-button { display: inline-block; float:right; }
 .select-text-button { display: inline-block; float:right; }
 .error-header span { padding-right: 10px; }
-.error-header {float: left;}
-
+.error-header {float: left; display:inline-block; }
+.buttons-div {float: right; display:inline-block; } 
+.hr-div {display: inline-block;}
 
 .message {
 	margin-top: 5px;
 	word-wrap: break-word;
-	white-space: pre-line;
 	word-break: break-all;
 }
 

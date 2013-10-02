@@ -14,6 +14,7 @@ class THost:
 	def put(self, data_dict):
 		find = False
 		ts = data_dict['ts']
+		data_dict['message'] = data_dict['message'].split('\r\n') 
 		for timestamp in self.errors.keys():
 			if (ts - timestamp).seconds < 60:
 				self.errors[timestamp] += 1

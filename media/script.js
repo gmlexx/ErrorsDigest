@@ -37,6 +37,11 @@ $(document).ready(function () {
 	}, 60000);
 });
 
+show_buttons = function(){
+   $(".create-pattern-button").button();
+   $(".select-text-button").button();
+};
+
 show_all_patterns = function(){
 	$(".zero_pattern").css("display", "table-row");
 };
