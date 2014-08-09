@@ -23,7 +23,8 @@ def load_patterns():
                         hash_value = TREE.add_pattern(TPattern(name, logger, pattern))
                         loaded_patterns_hashes.update({hash_value:None})
                 count += 1
-    TREE.add_pattern(TPattern("Default", ".*", ".*", default = True))
+    hash_value = TREE.add_pattern(TPattern("Default", ".*", ".*", default = True))
+    loaded_patterns_hashes.update({hash_value:None})
     for pattern_hash in TREE.patterns.keys():
         if pattern_hash not in loaded_patterns_hashes:
             latest_data = [item for item in TREE.patterns[pattern_hash].latest_data]
