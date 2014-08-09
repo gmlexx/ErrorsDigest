@@ -119,13 +119,14 @@ class Tree:
 
     def add_pattern(self, pattern):
         hash_value = hash("".join([pattern.name, pattern.logger, pattern.pattern])) & sys.maxint
-        self.patterns.update({hash_value: pattern})
-        if not pattern.default:
-            self.patterns_rank.update({hash_value: 0})
-            self.patterns_order.insert(0, hash_value)
-        else:
-            self.patterns_order.append(hash_value)
-            self.default_pattern = pattern
+        if hash_value not in self.patterns:
+            self.patterns.update({hash_value: pattern})
+            if not pattern.default:
+                self.patterns_rank.update({hash_value: 0})
+                self.patterns_order.insert(0, hash_value)
+            else:
+                self.patterns_order.append(hash_value)
+                self.default_pattern = pattern
         return hash_value
 
     def get_ranked_patterns(self):
