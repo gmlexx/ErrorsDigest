@@ -121,7 +121,7 @@ class Tree:
 
 	def put(self, data):
 		parts = []
-		word = ''
+		word = []
 		meet_square_bracket = False
 		parts_count = 0
 		c_count = 0
@@ -132,18 +132,18 @@ class Tree:
 			if c == ']':
 				meet_square_bracket = False
 			if c in space_characters and not meet_square_bracket:
-				parts.append(word)
-				word = ''
+				parts.append(''.join(word))
+				word = []
 				parts_count += 1
 				if parts_count == 6:
 					break
 			else:
-				word = "".join([word,c])
+				word.append(c)
 
 		parts.append(data[c_count:])
 
 		if len(parts) > 5:
-			level = parts[0] 
+			level = parts[0]
 			host = parts[4]
 			logger = parts[5]
 			message = " ".join((parts[6:]))
