@@ -10,7 +10,7 @@ class THost:
     def __init__(self, name):
         self.name = name
         self.errors = {}
-        self.latest_data = deque()
+        self.latest_data = deque(maxlen = 10)
 
     def put(self, data_dict):
         find = False
@@ -25,8 +25,6 @@ class THost:
         if find == False:
             self.errors.update({data_dict['ts']: 1})
         self.latest_data.append(data_dict)
-        if len(self.latest_data) > 10:
-            self.latest_data.popleft()
 
     def remove(self, data_dict):
         ts = data_dict['ts']
@@ -56,7 +54,7 @@ class TPattern:
         self.logger_re = re.compile(logger, re.DOTALL)
         self.pattern_re = re.compile(pattern, re.DOTALL)
         self.hosts = {}
-        self.latest_data = deque()
+        self.latest_data = deque(maxlen = 10)
         self.last_ts = None
         self.default = default
 
@@ -67,8 +65,6 @@ class TPattern:
         if self.default or self.logger_re.match(logger) != None:
             if self.default or self.pattern_re.match(message) != None:
                 self.latest_data.append(data_dict)
-                if len(self.latest_data) > 10:
-                    self.latest_data.popleft()
                 if host not in self.hosts:
                     self.hosts.update({host: THost(host)})
                 self.hosts[host].put(data_dict)
