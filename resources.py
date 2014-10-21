@@ -15,7 +15,7 @@ class TemplatedResource(resource.Resource):
 		response = self.template.render(context).encode('utf-8')
 		request.write(response)
 		return ""
-	
+
 class Index(TemplatedResource):
 
 	isLeaf = False
@@ -70,32 +70,3 @@ class Data(TemplatedResource):
 		host = request.args['host'][0]
 		context = Context(storage.TREE.get_host_data(inthash, host, td))
 		return self.render_template(context, request)
-
-class RawPatterns(TemplatedResource):
-
-	isLeaf = True
-
-	def render_GET(self, request):
-		context = Context({'data':storage.get_raw_patterns()})
-		return self.render_template(context, request)
-
-	def render_POST(self, request):
-		storage.save_patterns(request.args['data'][0])
-		return ""
-
-class RawNewPattern(TemplatedResource):
-	isLeaf = True
-
-	def render_GET(self, request):
-		context = Context({'data':"#<name>\n\n"})
-		return self.render_template(context,request)
-
-	def render_POST(self, request):
-		lines = []
-		for line in request.args['data'][0].decode('utf8').split("\n"):
-			stripped = line.strip()
-			if stripped != '':
-				lines.append(stripped)
-		name, logger, pattern = lines
-		storage.add_pattern(name.replace('#','').strip(), logger.strip(), pattern.strip())
-		return ""

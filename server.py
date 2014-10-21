@@ -33,8 +33,6 @@ root = resources.Root('media')
 root.putChild('pattern', resources.Pattern('pattern.html'))
 root.putChild('data', resources.Data('data.html'))
 root.putChild('digest', resources.Digest('digest.html'))
-root.putChild('patterns', resources.RawPatterns('all_patterns.html'))
-root.putChild('new_pattern', resources.RawNewPattern('new_pattern.html'))
 
 _factory = server.Site(root)
 

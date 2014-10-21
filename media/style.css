@@ -38,7 +38,6 @@ table td {
 .clear {	clear: both; }
 #wrap {	padding: 30px; }
 #np-div {padding-bottom: 20px;}
-#all_patterns_textarea {width: 520px; height:600px;	}
 .pattern {
 	background: #f4f4f4;
 	border: 1px solid #c4c4c4;
@@ -134,10 +133,6 @@ table td {
 	font-size: 9pt;
 }
 
-#new_pattern_textarea {width: 520px; height:250px;}
-#new_pattern_logger {font-size: 11px; margin-bottom: 10px; display: inline-block;}
-#new_pattern_message {height:auto; font-size: 11px; margin-bottom: 10px; display: inline-block;}
-
 .zero_pattern {
 	display: none;
 }
@@ -146,19 +141,22 @@ table td {
     background-color: #fcffcf;
 }
 
-.create-pattern-button { display: inline-block; float:right; }
 .select-text-button { display: inline-block; float:right; }
 .error-header span { padding-right: 10px; }
 .error-header {float: left; display:inline-block; }
-.buttons-div {float: right; display:inline-block; } 
+.buttons-div {float: right; display:inline-block; }
 .hr-div {display: inline-block;}
 
 .message {
-	margin-top: 5px;
-	word-wrap: break-word;
-	word-break: break-all;
+	text-align: left; font-size: 12px;
+	word-wrap: break-word; margin-right: 70px;
 }
 
 .level { color: blue; font-weight: bold }
 .host { color: blue; font-weight: bold }
 .timestamp { color: blue; font-weight: bold }
+
+.pattern_text {
+	text-align: left; font-size: 12px; max-width: 500px;
+	word-wrap: break-word;
+}

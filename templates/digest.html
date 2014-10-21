@@ -1,8 +1,12 @@
 		<table>
-			<tr><th>Pattern</th><th>Last</th><th>10 мин</th><th>1 час</th><th>4 часа</th><th>24 часа</th><th>48 часов</th></tr>
+			<tr><th>Message</th><th>Last</th><th>10 мин</th><th>1 час</th><th>4 часа</th><th>24 часа</th><th>48 часов</th></tr>
 		{% for pattern in digest %}
 			<tr {% if pattern.total == 0 %}	class="zero_pattern" {% endif %} >
-				<td {% if pattern.is_default %}	id="default_pattern" {% endif %} > {{ pattern.name }}</td>
+				<td class='pattern_text'>
+					{% for line in pattern.message_lines %}
+					<div>{{ line }}</div>
+					{% endfor%}
+					</td>
 				<td>{{ pattern.last_ts_delta }}</td>
 				{% for item in pattern.counts %}
 					{% if item.count > 0 %}
@@ -15,7 +19,7 @@
 		{% endfor%}
 		</table>
 		<script type="text/javascript">
-			update_digest = true;
-			if(update_digest == true) 
+			window.update_digest = true;
+			if(window.update_digest == true)
 			$("#update_digest_span").text("autoupdate every 60 sec");
 		</script>
