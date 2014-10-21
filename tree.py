@@ -8,7 +8,7 @@ space_characters = [' ','\t','\n','\r']
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_]+\b')
+tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\'.:,]+[\s(){}\[\]=]')
 
 class Tree:
 
@@ -93,6 +93,7 @@ class Tree:
             pattern = self.patterns[hash]
             counts, total = pattern.get_counts(time_deltas)
             digest.append({'message_lines': pattern.message_lines, 'total': total, 'counts': counts, 'hash': hash, 'last_ts_delta': pattern.get_last_ts_delta(now)})
+        digest.sort(key=lambda p: p['counts'][0]['count'], reverse=True)
         return {'digest':digest}
 
     def get_host_data(self, hash, host, td):
