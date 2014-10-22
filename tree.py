@@ -77,7 +77,7 @@ class Tree:
                     max_similarity = s[0]
                     max_similarity_index = i
 
-            if max_similarity > 0.84:
+            if max_similarity > 0.85:
                 pattern = self.patterns_indexes[max_similarity_index]
                 pattern.put(data_dict)
                 return
@@ -97,7 +97,7 @@ class Tree:
             digest.append({'message_lines': pattern.message_lines, 'total': total, 'counts': counts, 'hash': hash, 'last_ts_delta': pattern.get_last_ts_delta(now), 'id': pattern.id })
             if total == 0:
                 zero_patterns += 1
-        digest.sort(key=lambda p: p['counts'][0]['count'], reverse=True)
+        digest.sort(key=lambda p: p['counts'][1]['delta'], reverse=True)
         return {'digest':digest, 'zero_patterns': zero_patterns, 'total_patterns': len(digest)}
 
     def get_host_data(self, hash, host, td):

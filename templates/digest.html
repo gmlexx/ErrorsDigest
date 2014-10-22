@@ -8,7 +8,15 @@
 				<td>{{ message.last_ts_delta }}</td>
 				{% for item in message.counts %}
 					{% if item.count > 0 %}
-						<td class="td-count" onclick="open_pattern('{{ message.hash }}', '{{ item.min }}');">{{ item.count }}</td>
+						<td class="td-count" onclick="open_pattern('{{ message.hash }}', '{{ item.min }}');">
+							<div>{{ item.count }}</div>
+							{% if item.delta > 0 and item.delta <= 90 %}
+								<div class="delta_down">{{ item.delta }}%</div>
+							{% endif %}
+							{% if item.delta > 90 %}
+								<div class="delta_up">{{ item.delta }}%</div>
+							{% endif %}
+						</td>
 					{% else %}
 						<td class="td-zero"></td>
 					{% endif %}

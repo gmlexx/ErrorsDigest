@@ -2941,7 +2941,7 @@ documents = ["""
 
 					"""]
 
-tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]')
+tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]', lowercase=False, use_idf=False)
 tfidf_matrix = tfidf_vectorizer.fit(documents)
 
 vectors = tfidf_matrix.transform(["""Diadoc.FilterIndex.Impl.LiveIndexReading.LiveIndexTaskReadQueueWorker Diadoc.FilterByStatusTimestampIndexHost Will retry request to LiveIndex (null)"""])

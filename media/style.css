@@ -19,7 +19,8 @@ table td {
 }
 
 .td-count {
-    cursor: pointer;
+	cursor: pointer;
+	vertical-align: top;
 }
 
 .td-zero {
@@ -161,3 +162,5 @@ table td {
 	word-wrap: break-word;
 }
 .hex {color: blue; cursor: pointer;}
+.delta_up {color: red; font-weight: bold; font-size: smaller; margin-top: 10px;}
+.delta_down {color: green; font-weight: bold; font-size: smaller; margin-top: 10px;}

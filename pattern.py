@@ -37,7 +37,16 @@ class TPattern:
             for host in self.hosts.keys():
                 count += self.hosts[host].get_count(td)
                 total += count
-            counts.append({'min': min, 'count': count})
+            counts.append({'min': min, 'count': count, 'delta':0})
+        for i, item in enumerate(counts):
+            if i >= len(counts) - 1:
+                break
+            next = counts[i + 1]
+            if item['count'] == 0 or next['count'] == 0:
+                continue
+            delta = int(100 * (float(item['count']) / item['min']) / (float(next['count']) / next['min']))
+            item['delta'] = delta
+
         return (counts, total)
 
     def get_details(self, td):
