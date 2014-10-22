@@ -23,7 +23,7 @@ def load():
                     continue
                 pbar = ProgressBar(widgets=['Loading %s: ' % file, Percentage(), Bar(), FileTransferSpeed()], maxval=total_size).start()
                 for line in f:
-                    if line[:5] == "ERROR" or line[:5] == "INFO " or line[:5] == "WARN " or line[:5] == "FATAL":
+                    if line[:5] == "WARN " or line[:5] == "ERROR" or line[:5] == "INFO " or line[:5] == "DEBUG " or line[:5] == "FATAL":
                         count += 1
                         TREE.put(data)
                         data = ""
