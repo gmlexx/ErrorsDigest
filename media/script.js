@@ -44,7 +44,7 @@ show_buttons = function(){
 
 replace_hex = function(){
 	$(".message").each(function(idx, element){
-		var newHtml = $(element).html().replace(/[0-9a-fA-F-]{8,}/g, '<span class="hex" onclick="select_text($(this));">$&</span>')
+		var newHtml = $(element).html().replace(/\b[0-9a-fA-F-]{8,}\b/g, '<span class="hex" onclick="select_text($(this));">$&</span>')
 		$(element).html(newHtml);
 	});
 };
