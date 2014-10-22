@@ -8,7 +8,7 @@ space_characters = [' ','\t','\n','\r']
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\'.:,]+[\s(){}\[\]=]')
+tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]')
 
 class Tree:
 
@@ -77,7 +77,7 @@ class Tree:
                     max_similarity = s[0]
                     max_similarity_index = i
 
-            if max_similarity > 0.85:
+            if max_similarity > 0.84:
                 pattern = self.patterns_indexes[max_similarity_index]
                 pattern.put(data_dict)
                 return
