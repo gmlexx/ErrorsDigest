@@ -160,3 +160,4 @@ table td {
 	text-align: left; font-size: 12px; max-width: 500px;
 	word-wrap: break-word;
 }
+.hex {color: blue; cursor: pointer;}

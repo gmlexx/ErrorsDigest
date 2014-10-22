@@ -42,6 +42,13 @@ show_buttons = function(){
    $(".select-text-button").button();
 };
 
+replace_hex = function(){
+	$(".message").each(function(idx, element){
+		var newHtml = $(element).html().replace(/[0-9a-fA-F-]{8,}/g, '<span class="hex" onclick="select_text($(this));">$&</span>')
+		$(element).html(newHtml);
+	});
+};
+
 show_all_patterns = function(){
 	$(".zero_pattern").css("display", "table-row");
 	window.update_digest = false;
