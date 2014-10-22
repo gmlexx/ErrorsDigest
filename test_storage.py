@@ -1,8 +1,6 @@
-import storage, cProfile
+import storage
 
-def load():
-    count = storage.load()
-    print 'Total patterns: ', len(storage.TREE.patterns)
-    print 'Total messages: ', count
+count = storage.load()
+print 'Total patterns: ', len(storage.TREE.patterns)
+print 'Total messages: ', count
 
-cProfile.run('load()')
