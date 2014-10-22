@@ -97,7 +97,7 @@ class Tree:
             digest.append({'message_lines': pattern.message_lines, 'total': total, 'counts': counts, 'hash': hash, 'last_ts_delta': pattern.get_last_ts_delta(now), 'id': pattern.id })
             if total == 0:
                 zero_patterns += 1
-        digest.sort(key=lambda p: p['counts'][1]['delta'], reverse=True)
+        digest.sort(key=lambda p: p['counts'][0]['delta'], reverse=True)
         return {'digest':digest, 'zero_patterns': zero_patterns, 'total_patterns': len(digest)}
 
     def get_host_data(self, hash, host, td):
