@@ -10,6 +10,7 @@ class TPattern:
         self.hosts = {}
         self.latest_data = deque(maxlen = 10)
         self.last_ts = None
+        self.id = data_dict['id']
 
     def put(self, data_dict):
         text = data_dict['text']

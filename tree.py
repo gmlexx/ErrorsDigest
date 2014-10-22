@@ -89,12 +89,16 @@ class Tree:
     def get_digest(self, time_deltas):
         digest = []
         now = datetime.now()
+        total_patterns = 0
+        zero_patterns = 0
         for hash in self.patterns:
             pattern = self.patterns[hash]
             counts, total = pattern.get_counts(time_deltas)
-            digest.append({'message_lines': pattern.message_lines, 'total': total, 'counts': counts, 'hash': hash, 'last_ts_delta': pattern.get_last_ts_delta(now)})
+            digest.append({'message_lines': pattern.message_lines, 'total': total, 'counts': counts, 'hash': hash, 'last_ts_delta': pattern.get_last_ts_delta(now), 'id': pattern.id })
+            if total == 0:
+                zero_patterns += 1
         digest.sort(key=lambda p: p['counts'][0]['count'], reverse=True)
-        return {'digest':digest}
+        return {'digest':digest, 'zero_patterns': zero_patterns, 'total_patterns': len(digest)}
 
     def get_host_data(self, hash, host, td):
         return {'data': self.patterns[hash].get_data(host, td)}

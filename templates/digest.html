@@ -1,25 +1,21 @@
 		<table>
 			<tr><th>Message</th><th>Last</th><th>10 мин</th><th>1 час</th><th>4 часа</th><th>24 часа</th><th>48 часов</th></tr>
-		{% for pattern in digest %}
-			<tr {% if pattern.total == 0 %}	class="zero_pattern" {% endif %} >
+			{% for message in digest %}
+			<tr {% if message.total == 0 %}	class="zero_pattern" {% endif %} >
 				<td class='pattern_text'>
-					{% for line in pattern.message_lines %}
-					<div>{{ line }}</div>
-					{% endfor%}
-					</td>
-				<td>{{ pattern.last_ts_delta }}</td>
-				{% for item in pattern.counts %}
+					{% include "message.html" %}
+				</td>
+				<td>{{ message.last_ts_delta }}</td>
+				{% for item in message.counts %}
 					{% if item.count > 0 %}
-						<td class="td-count" onclick="open_pattern('{{ pattern.hash }}', '{{ item.min }}');">{{ item.count }}</td>
+						<td class="td-count" onclick="open_pattern('{{ message.hash }}', '{{ item.min }}');">{{ item.count }}</td>
 					{% else %}
 						<td class="td-zero"></td>
 					{% endif %}
 				{% endfor%}
 			</tr>
-		{% endfor%}
+			{% endfor%}
 		</table>
-		<script type="text/javascript">
-			window.update_digest = true;
-			if(window.update_digest == true)
-			$("#update_digest_span").text("autoupdate every 60 sec");
-		</script>
+	    <script type="text/javascript">
+        	show_buttons();
+    	</script>

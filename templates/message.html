@@ -1,0 +1,8 @@
+<div class='buttons-div'>
+    <span onclick='select_text($("#message_{{ message.id }}"));' class='select-text-button'>Select</span>
+</div>
+<div class='message' id='message_{{ message.id }}'>
+    {% for line in message.message_lines %}
+        <div>{{ line }}</div>
+    {% endfor %}
+</div>

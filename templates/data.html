@@ -1,19 +1,12 @@
 			<ul>
-			{% for item in data %}
+			{% for message in data %}
 				<li>
 					<div class='error-header'>
-						<span class='level'>{{ item.level }}</span>
-						<span class='timestamp'>{{ item.ts_string }}</span>
-						<span class='host'>{{ item.host }}</span>
+						<span class='level'>{{ message.level }}</span>
+						<span class='timestamp'>{{ message.ts_string }}</span>
+						<span class='host'>{{ message.host }}</span>
 					</div>
-                    <div class='buttons-div'>
-                        <span onclick='select_text($("#message_{{ item.id }}"));' class='select-text-button'>Select</span>
-                    </div>
-                    <div class='message' id='message_{{ item.id }}'>
-                        {% for line in item.message_lines %}
-                            <div>{{ line }}</div>
-                        {% endfor %}
-                    </div>
+					{% include "message.html" %}
 				</li>
 			{% endfor %}
 			</ul>
