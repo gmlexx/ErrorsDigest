@@ -70,3 +70,12 @@ class Data(TemplatedResource):
 		host = request.args['host'][0]
 		context = Context(storage.TREE.get_host_data(inthash, host, td))
 		return self.render_template(context, request)
+
+class Metrics(TemplatedResource):
+
+	isLeaf = True
+
+	def render_GET(self, request):
+
+		context = Context(storage.TREE.metrics)
+		return self.render_template(context, request)

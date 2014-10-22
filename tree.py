@@ -5,28 +5,21 @@ from pattern import TPattern
 
 space_characters = [' ','\t','\n','\r']
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]', lowercase=False, use_idf=False)
-
 class Tree:
 
     def __init__(self):
         self.patterns = {}
-        self.patterns_indexes = {}
-        self.tfidf_matrix = None
-        self.vectors = None
+        self.patterns_rank = {}
+        self.rank_counter = 0
+        self.ranked_pattern_hashes = []
+        self.metrics = {'processed': 0, 'checks': 0}
 
     def add_pattern(self, pattern):
         hash_value = hash(pattern.text) & sys.maxint
         if hash_value not in self.patterns:
             self.patterns.update({hash_value: pattern})
-            patterns = self.patterns.values()
-            documents = [ p.text for p in patterns ]
-            self.tfidf_matrix = tfidf_vectorizer.fit(documents)
-            self.vectors = self.tfidf_matrix.transform(documents)
-            self.patterns_indexes = dict(enumerate(patterns))
+            self.patterns_rank.update({hash_value: 0})
+            self.ranked_pattern_hashes.append(hash_value)
         return hash_value
 
     def clear(self):
@@ -62,29 +55,29 @@ class Tree:
             ts = datetime.strptime("%s %s" % (parts[1], parts[2]), "%Y-%m-%d %H:%M:%S,%f")
             ts_string = "".join([parts[1], " ", parts[2]])
             data_dict = {'level':level, 'host':host, 'text': text, 'ts':ts, 'id': uuid.uuid4(), 'ts_string':ts_string, 'message_lines': text.split('\n') }
-            self.process_data_dict(data_dict)
+            checks = self.process_data_dict(data_dict)
+            self.metrics['processed'] += 1
+            self.metrics['checks'] += checks
 
         return datetime.now().date().strftime("%Y-%m-%d")
 
+    def reset_ranks(self):
+        self.ranked_pattern_hashes = sorted(self.patterns_rank, key=self.patterns_rank.get, reverse=True)
+        for hash in self.ranked_pattern_hashes:
+            self.patterns_rank[hash] = 0
+
     def process_data_dict(self, data_dict):
-        if self.tfidf_matrix:
-            vectors = self.tfidf_matrix.transform([data_dict['text']])
-            similarities = cosine_similarity(self.vectors, vectors)
-            max_similarity = -1
-            max_similarity_index = -1
-            for i, s in enumerate(similarities):
-                if s[0] > max_similarity:
-                    max_similarity = s[0]
-                    max_similarity_index = i
-
-            if max_similarity > 0.85:
-                pattern = self.patterns_indexes[max_similarity_index]
-                pattern.put(data_dict)
-                return
-
-        new_pattern = TPattern(data_dict)
-        new_pattern.put(data_dict)
-        self.add_pattern(new_pattern)
+        for i, hash_value in enumerate(self.ranked_pattern_hashes):
+            pattern = self.patterns[hash_value]
+            if pattern.put(data_dict):
+                self.patterns_rank[hash_value] += 1
+                self.rank_counter += 1
+                if self.rank_counter > 2000:
+                    self.reset_ranks()
+                    self.rank_counter = 0
+                return i
+        self.add_pattern(TPattern(data_dict))
+        return len(self.ranked_pattern_hashes)
 
     def get_digest(self, time_deltas):
         digest = []
