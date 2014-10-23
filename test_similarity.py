@@ -1,5 +1,5 @@
 # coding: utf-8
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 documents = ["""
@@ -18,7 +18,7 @@ documents = ["""
 
 """]
 
-tfidf_vectorizer = CountVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]', lowercase=False)
+tfidf_vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]', lowercase=False, use_idf=False)
 similarities = []
 
 tfidf_matrix = tfidf_vectorizer.fit(documents)

@@ -1,7 +1,7 @@
 from collections import deque
 from host import THost
 from datetime import datetime, timedelta
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 class TPattern:
@@ -13,7 +13,7 @@ class TPattern:
         self.latest_data = deque(maxlen = 10)
         self.last_ts = None
         self.id = data_dict['id']
-        self.vectorizer = CountVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]', lowercase=False)
+        self.vectorizer = TfidfVectorizer(token_pattern=r'(?u)\b[a-zA-Z_\':,]+[\s(){}\[\]=.]', lowercase=False, use_idf=False)
         self.matrix = self.vectorizer.fit([self.text])
         self.vectors = self.matrix.transform([self.text])
         self.put(data_dict, nocheck=True)
@@ -21,7 +21,7 @@ class TPattern:
     def put(self, data_dict, nocheck=False):
         text = data_dict['text']
         vectors = self.matrix.transform([text])
-        if nocheck or cosine_similarity(self.vectors, vectors) > 0.85:
+        if nocheck or cosine_similarity(self.vectors, vectors) > 0.9:
             host = data_dict['host']
             self.latest_data.append(data_dict)
             if host not in self.hosts:
