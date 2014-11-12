@@ -114,7 +114,7 @@ class Tree:
         self.patterns_order = []
         self.patterns_rank = {}
         self.rank_counter = 0
-        self.ranked_patterns = None
+        self.ranked_patterns = []
         self.default_pattern = None
 
     def add_pattern(self, pattern):
@@ -124,13 +124,14 @@ class Tree:
             if not pattern.default:
                 self.patterns_rank.update({hash_value: 0})
                 self.patterns_order.insert(0, hash_value)
+                self.ranked_patterns.append(hash_value)
             else:
                 self.patterns_order.append(hash_value)
                 self.default_pattern = pattern
         return hash_value
 
     def get_ranked_patterns(self):
-        if not self.ranked_patterns:
+        if not self.ranked_patterns or len(self.ranked_patterns) == 0:
             self.ranked_patterns = sorted(self.patterns_rank, key=self.patterns_rank.get, reverse = True)
             self.rank_counter = 0
         return self.ranked_patterns
