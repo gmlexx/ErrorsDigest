@@ -8,7 +8,6 @@ TREE = Tree()
 
 def load_patterns():
     TREE.ranked_patterns = []
-    TREE.patterns_rank.clear()
     loaded_patterns_hashes = {}
     pattern_path = os.path.join(DATA_PATH, "patterns")
     if os.path.exists(pattern_path):
@@ -31,6 +30,7 @@ def load_patterns():
         if pattern_hash not in loaded_patterns_hashes:
             latest_data = [item for item in TREE.patterns[pattern_hash].latest_data]
             del TREE.patterns[pattern_hash]
+            del TREE.patterns_rank[pattern_hash]
             TREE.patterns_order.remove(pattern_hash)
             for item in latest_data:
                 TREE.process_data_dict(item)
