@@ -120,9 +120,9 @@ class Tree:
     def add_pattern(self, pattern):
         hash_value = hash("".join([pattern.name, pattern.logger, pattern.pattern])) & sys.maxint
         if hash_value not in self.patterns:
-            self.patterns.update({hash_value: pattern})
+            self.patterns[hash_value] = pattern
             if not pattern.default:
-                self.patterns_rank.update({hash_value: 0})
+                self.patterns_rank[hash_value] = 0
                 self.patterns_order.insert(0, hash_value)
                 self.ranked_patterns.append(hash_value)
             else:
@@ -194,7 +194,7 @@ class Tree:
         for hash in self.patterns_order:
             pattern = self.patterns[hash]
             counts, total = pattern.get_counts(time_deltas)
-            digest.append({'name': pattern.name, 'total': total, 'counts': counts, 'hash': hash, 'is_default': (pattern.name.lower().replace(' ','') == '#default'), 'last_ts_delta': pattern.get_last_ts_delta(now)})
+            digest.append({'name': pattern.name, 'total': total, 'counts': counts, 'hash': hash, 'is_default': pattern.default, 'last_ts_delta': pattern.get_last_ts_delta(now)})
         return {'digest':digest}
 
     def get_host_data(self, hash, host, td):
@@ -213,4 +213,3 @@ class Tree:
         else:
             pattern_details.update({'hash': hash})
             return pattern_details
-
