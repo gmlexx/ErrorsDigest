@@ -8,6 +8,7 @@ TREE = Tree()
 
 def load_patterns():
     TREE.ranked_patterns = []
+    TREE.patterns_rank.clear()
     loaded_patterns_hashes = {}
     pattern_path = os.path.join(DATA_PATH, "patterns")
     if os.path.exists(pattern_path):
