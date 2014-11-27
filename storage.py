@@ -7,6 +7,7 @@ DATA_PATH = os.path.realpath('./data')
 TREE = Tree()
 
 def load_patterns():
+    TREE.ranked_patterns = []
     loaded_patterns_hashes = {}
     pattern_path = os.path.join(DATA_PATH, "patterns")
     if os.path.exists(pattern_path):
