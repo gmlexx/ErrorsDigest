@@ -25,6 +25,7 @@ def load_patterns():
                     count += 1
     hash_value = TREE.add_pattern(TPattern("Default", ".*", ".*", default = True))
     loaded_patterns_hashes[hash_value] = None
+    TREE.ranked_patterns = []
     for pattern_hash in TREE.patterns.keys():
         if pattern_hash not in loaded_patterns_hashes:
             latest_data = [item for item in TREE.patterns[pattern_hash].latest_data]
@@ -34,7 +35,7 @@ def load_patterns():
             TREE.patterns_order.remove(pattern_hash)
             for item in latest_data:
                 TREE.process_data_dict(item)
-    TREE.ranked_patterns = []
+
 
 def load():
 
