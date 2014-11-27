@@ -121,6 +121,7 @@ class Tree:
         hash_value = hash("".join([pattern.name, pattern.logger, pattern.pattern])) & sys.maxint
         if hash_value not in self.patterns:
             self.patterns[hash_value] = pattern
+            print "Add pattern %s" % pattern.name.encode('utf-8')
             if not pattern.default:
                 self.patterns_rank[hash_value] = 0
                 self.patterns_order.insert(0, hash_value)
